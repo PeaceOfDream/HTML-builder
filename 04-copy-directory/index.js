@@ -7,6 +7,18 @@ const filesCopyName = path.join(__dirname, 'files-copy');
 function copyDir() {
 	fs.mkdir(filesCopyName, { recursive: true }, err => {
 
+
+		fs.readdir(filesCopyName, (err, files) => {
+			if (err) throw err;
+
+			for (const file of files) {
+				fs.unlink(path.join(filesCopyName, file), err => {
+					if (err) throw err;
+				});
+			}
+		});
+
+
 		fs.readdir(filesName, (err, files) => {
 
 			for (let file of files) {
